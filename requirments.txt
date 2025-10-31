@@ -1,0 +1,15 @@
+python-dotenv
+pandas
+numpy==1.26.4
+scikit-learn
+matplotlib
+seaborn
+flask
+XGBoost
+certifi
+dill
+fastapi
+uvicorn
+imbalanced-learn
+lightgbm
+##-e .
