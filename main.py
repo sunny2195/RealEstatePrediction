@@ -1,6 +1,7 @@
 from housing_pricer.config.configuration import ConfigurationManager
 from housing_pricer.components.data_ingestion import DataIngestion
 from housing_pricer.components.data_validation import DataValidation
+from housing_pricer.components.data_transformation import DataTransformation # <-- 1. IMPORT IT
 
 class TrainingPipeline:
     def __init__(self):
@@ -23,6 +24,12 @@ class TrainingPipeline:
                 raise Exception("Data Validation Failed. Pipeline stopped.")
             
             print(">>> Stage 2: Data Validation Complete <<<\n")
+
+            print(">>> Starting Stage 3: Data Transformation <<<")
+            transformation_config = self.config_manager.get_data_transformation_config()
+            data_transformation = DataTransformation(config=transformation_config)
+            data_transformation.run_transformation()
+            print(">>> Stage 3: Data Transformation Complete <<<\n")
 
 
 
