@@ -1,7 +1,9 @@
 from housing_pricer.config.configuration import ConfigurationManager
 from housing_pricer.components.data_ingestion import DataIngestion
 from housing_pricer.components.data_validation import DataValidation
-from housing_pricer.components.data_transformation import DataTransformation # <-- 1. IMPORT IT
+from housing_pricer.components.data_transformation import DataTransformation 
+from housing_pricer.components.model_trainer import ModelTrainer
+from housing_pricer.components.model_evaluation import ModelEvaluation
 
 class TrainingPipeline:
     def __init__(self):
@@ -31,7 +33,17 @@ class TrainingPipeline:
             data_transformation.run_transformation()
             print(">>> Stage 3: Data Transformation Complete <<<\n")
 
+            print(">>> Starting Stage 4: Model Trainer <<")
+            model_trainer_config = self.config_manager.get_model_trainer_config()
+            model_trainer = ModelTrainer(config=model_trainer_config)
+            model_trainer.run_training()
+            print(">>> Stage 4: Model Trainer Complete <<<\n")
 
+            print(">>> Starting Stage 5: Model Evaluation <<<")
+            model_evaluation_config = self.config_manager.get_model_evaluation_config()
+            model_evaluation = ModelEvaluation(config=model_evaluation_config)
+            model_evaluation.run_evaluation()
+            print(">>> Stage 5: Model Evaluation Complete <<<\n")
 
 
         except Exception as e:

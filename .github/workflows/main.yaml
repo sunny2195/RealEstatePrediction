@@ -1,0 +1,49 @@
+
+name: CI-CD Pipeline for Melbourne Housing
+
+
+on:
+  
+  push:
+    branches:
+      - main
+      - master
+
+
+jobs:
+  
+  build-and-train:
+    
+    runs-on: ubuntu-latest 
+
+    
+    steps:
+    - name: Check out the code
+      
+      uses: actions/checkout@v3
+
+    - name: Set up Python 3.10
+      
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies (from shopping list)
+      
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run the full training pipeline
+      
+      run: |
+        python main.py
+
+    
+    - name: Upload Training Artifacts
+      
+      uses: actions/upload-artifact@v3
+      with:
+        name: trained-model-artifacts
+        
+        path: artifacts/

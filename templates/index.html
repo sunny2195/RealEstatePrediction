@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Melbourne House Price Prediction</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 2em; background-color: #f8f9fa; }
+        .container { max-width: 600px; margin: 0 auto; padding: 2em; background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        h1 { color: #333; }
+        h2 { color: #007bff; }
+        label { display: block; margin-top: 1em; font-weight: 500; }
+        input, select { width: 100%; padding: 0.5em; margin-top: 0.25em; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #007bff; color: white; padding: 0.75em 1.5em; border: none; border-radius: 4px; cursor: pointer; font-size: 1em; margin-top: 1.5em; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏠 Melbourne Price Predictor</h1>
+        <p>Enter the details of the property to get an estimated price.</p>
+        
+        <form action="/predict" method="POST">
+            <label for="suburb">Suburb:</label>
+            <input type="text" id="suburb" name="Suburb" value="Reservoir">
+
+            <label for="rooms">Rooms:</label>
+            <select id="rooms" name="Rooms">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+            <label for="type">Property Type:</label>
+            <select id="type" name="Type">
+                <option value="h" selected>House</option>
+                <option value="u">Unit</option>
+                <option value="t">Townhouse</option>
+            </select>
+
+            <label for="distance">Distance from CBD (km):</label>
+            <input type="number" id="distance" name="Distance" step="0.1" value="10.0">
+            
+            <button type="submit">Predict Price</button>
+        </form>
+
+        {% if prediction_text %}
+            <h2>{{ prediction_text }}</h2>
+        {% endif %}
+    </div>
+</body>
+</html>
