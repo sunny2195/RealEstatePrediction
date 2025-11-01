@@ -10,7 +10,7 @@ on:
       - master
 
 env:
-  IMAGE_NAME: ghcr.io/${{ github.repository }}
+  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/realestateprediction
 
 
 jobs:
