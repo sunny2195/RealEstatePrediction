@@ -1,5 +1,5 @@
 
-name: CI-CD Pipeline for Melbourne Housing
+name: CI-CD Pipeline for Real Estate Prediction
 
 
 on:
@@ -8,6 +8,9 @@ on:
     branches:
       - main
       - master
+
+env:
+  IMAGE_NAME: ghcr.io/${{ github.repository }}
 
 
 jobs:
@@ -47,3 +50,36 @@ jobs:
         name: trained-model-artifacts
         
         path: artifacts/
+
+  build-and-push-docker:
+  
+    needs: build-and-train
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write 
+
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v3
+
+    - name: Download model artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: trained-model-artifacts
+        path: artifacts/
+        
+    - name: Log in to GitHub Container Registry (GHCR)
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .  
+        file: ./Dockerfile 
+        tags: ${{ env.IMAGE_NAME }}:latest

@@ -1,0 +1,8 @@
+pandas
+scikit-learn
+lightgbm
+Flask
+uvicorn  
+joblib
+pyyaml
+python-box
