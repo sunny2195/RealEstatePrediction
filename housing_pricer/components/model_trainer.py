@@ -22,7 +22,7 @@ class ModelTrainer:
             preprocessor = joblib.load(preprocessor_path)
             print(f"Loaded preprocessor from: {preprocessor_path}")
 
-            target_column = "Price" # This should come from config, but we'll hard-code
+            target_column = "Price" 
             X_train = train_df.drop(target_column, axis=1)
             y_train = train_df[target_column]
 

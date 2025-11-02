@@ -4,11 +4,10 @@ import joblib
 from flask import Flask, request, render_template
 from pathlib import Path
 
-# --- Initialize Flask App ---
+
 app = Flask(__name__)
 
-# --- Load Our "Factory Products" (Model & Preprocessor) ---
-# We load these ONCE at the start.
+
 try:
     model_path = Path("artifacts/model_trainer/model.joblib")
     preprocessor_path = Path("artifacts/data_transformation/preprocessor.pkl")
